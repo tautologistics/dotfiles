@@ -55,6 +55,10 @@ vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
@@ -71,6 +75,7 @@ set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
 set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
+set scrolloff=10           " Keep 10 lines (top/bottom) for scope
 
 
 " ----------------------------------------------------------------------------
@@ -84,6 +89,7 @@ set laststatus=2           " always show the status line
 set ignorecase             " ignore case when searching
 set nohlsearch             " don't highlight searches
 set visualbell             " shut the fuck up
+set matchtime=3            " blinking time for matching brackets
 
 
 " ---------------------------------------------------------------------------
@@ -94,3 +100,8 @@ function! StripWhitespace ()
     exec ':%s/ \+$//gc'
 endfunction
 map ,s :call StripWhitespace ()<CR>
+
+" ---------------------------------------------------------------------------
+"  Plugin Configurations
+" ---------------------------------------------------------------------------
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
