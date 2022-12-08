@@ -7,7 +7,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 
-{{- if eq .location "work" }}
+{{- if eq .machine_context "work" }}
 tap "aws/tap"
 tap "fishtown-analytics/dbt"
 tap "heroku/brew"
@@ -54,14 +54,14 @@ brew "wget"
 brew "wtfutil"
 brew "zsh"
 
-{{- if eq .location "home" }}
+{{- if eq .machine_context "home" }}
 brew "postgresql"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "heroku/brew/heroku"
 {{- end }}
 
-{{- if eq .location "work" }}
+{{- if eq .machine_context "work" }}
 brew "awscli"
 brew "newrelic-cli"
 brew "aws/tap/aws-sam-cli"
@@ -308,7 +308,7 @@ cask "spectacle"
 cask "speedcrunch"
 cask "visual-studio-code"
 
-{{- if eq .location "home" }}
+{{- if eq .machine_context "home" }}
 cask "1password"
 cask "1password-cli"
 cask "arq"
@@ -322,7 +322,7 @@ cask "vmware-fusion"
 cask "zoomus"
 {{- end }}
 
-{{- if eq .location "work" }}
+{{- if eq .machine_context "work" }}
 cask "aws-vault"
 {{- end }}
 
