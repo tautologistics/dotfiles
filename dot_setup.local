@@ -1,15 +1,29 @@
 #!/bin/bash
 
-set -e
+set -eufo pipefail
 
-info_echo "Installing or updating chezmoi ..."
-brew bundle --file=- <<EOF
-    brew 'chezmoi'
-EOF
+echo ""
+echo "🤚  This script will setup .dotfiles for you."
+read -n 1 -r -s -p $'    Press any key to continue or Ctrl+C to abort...\n\n'
+
+command -v brew >/dev/null 2>&1 || \
+  (echo '🍺  Installing Homebrew' && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)")
+
+command -v chezmoi >/dev/null 2>&1 || \
+  (echo '👊  Installing chezmoi' && brew install chezmoi)
+
 if [ ! -f "$HOME/.config/chezmoi/chezmoi.toml" ]; then
   echo "Applying dotfiles with chezmoi..."
   chezmoi init --apply --verbose https://github.com/tautologistics/dotfiles.git
   chmod 0600 "$HOME/.config/chezmoi/chezmoi.toml"
+fi
+
+if [ -d "$HOME/.local/share/chezmoi/.git" ]; then
+  echo "🚸  chezmoi already initialized"
+  echo "    Reinitialize with: 'chezmoi init https://github.com/tautologistics/dotfiles.git'"
+else
+  echo "🚀  Initialize dotfiles with:"
+  echo "    chezmoi init https://github.com/tautologistics/dotfiles.git"
 fi
 
 BREWFILE="$HOME/.config/Brewfile"
