@@ -1,0 +1,325 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# zmodload zsh/zprof
+######################################
+
+export TERM="xterm-256color"
+
+# Path to your oh-my-zsh installation.
+#export ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+#ZSH_THEME="robbyrussell"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+export DISABLE_UPDATE_PROMPT=false
+export DISABLE_AUTO_UPDATE=false
+export UPDATE_ZSH_DAYS=7
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+#plugins=(git atom brew brew-cask colored-man colorize git-extras git-prompt heroku node osx npm nvm gulp tmux tmuxinator)
+#plugins=(git brew brew-cask colored-man colorize git-extras git-prompt)
+
+source /usr/local/share/antigen/antigen.zsh
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Load plugins
+antigen bundle git
+antigen bundle aws
+antigen bundle brew
+antigen bundle brew-cask
+antigen bundle colored-man
+antigen bundle colorize
+antigen bundle git-extras
+antigen bundle arialdomartini/oh-my-git
+antigen bundle git-prompt
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle Tarrasch/zsh-autoenv
+#ZSH_POETRY_OVERRIDE_SHELL=0
+#antigen bundle darvid/zsh-poetry
+#antigen bundle popstas/zsh-command-time
+antigen bundle Aloxaf/fzf-tab
+#antigen bundle agkozak/zsh-z
+antigen bundle thuandt/zsh-pipx
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+# POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(background_jobs dir root_indicator status)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs virtualenv pyenv command_execution_time time)
+# POWERLEVEL9K_VIRTUALENV_FOREGROUND=lightgrey
+# POWERLEVEL9K_PYENV_FOREGROUND=lightgrey
+# POWERLEVEL9K_DIR_HOME_FOREGROUND=lightgrey
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=lightgrey
+# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=lightgrey
+# POWERLEVEL9K_DIR_ETC_FOREGROUND=lightgrey
+# antigen theme bhilburn/powerlevel9k powerlevel9k
+
+antigen theme romkatv/powerlevel10k
+
+#antigen apply
+#antigen theme robbyrussell
+#antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+# Tell Antigen that you're done.
+antigen apply
+
+#zstyle ':completion:*' menu select
+
+#source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# Syntax highlighter color tweaks
+export ZSH_HIGHLIGHT_STYLES[globbing]=fg=cyan,bold
+
+export EDITOR=micro
+
+export PATH="/usr/local/sbin:/usr/local/bin:bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/chris/bin:/Users/chris/Library/Android/sdk/platform-tools:/Users/chris/projects/misc/flutter/bin"
+export MANPATH="/usr/local/man:/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+#export ANDROID_HOME=/usr/local/opt/android-sdk
+#export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
+export ANDROID_HOME=/Users/chris/Library/Android/sdk
+export ANDROID_SDK_ROOT=/Users/chris/Library/Android/sdk
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+export ARCHFLAGS="-arch x86_64"
+
+# ssh
+export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$HOME/Library/Haskell/bin:$PATH"
+
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+
+alias ll="ls -lhAG"
+alias lls="exa -lha"
+alias nl='nl -ba'
+unalias gm
+alias reset_all_file_perms='find . -type f -print0 | xargs -0 chmod 0644'
+alias reset_all_dir_perms='find . -type d -print0 | xargs -0 chmod 0755'
+alias whynosleep='pmset -g assertions .'
+alias git-dead-branch="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}'"
+alias pping='prettyping --nolegend'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias dux="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+alias help="tldr"
+alias csvq="q -H -d,"
+alias code-wait="code -w"
+alias touchbarkill="pkill TouchBarServer"
+alias pip-stale="pip list --outdated"
+alias findd="find . -type d -iname"
+alias findf="find . -type f -iname"
+alias aws-local="aws --endpoint-url=http://localhost:4566"
+alias npm-exec='PATH=$(npm bin):$PATH'
+
+digall() {
+  dig +nocmd +multiline +noall +answer $1 any
+}
+
+jqz() {
+    PREVIEW_CMD="jq {q} < '$1'"
+    echo '' | fzf --preview $PREVIEW_CMD
+}
+
+export SHELL="/bin/zsh"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# Use GNU CLTs
+# https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+#export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+
+# loadnvm() {
+    # unset -f nvm
+    # unset -f node
+    # unset -f npm
+    # export NVM_DIR=~/.nvm
+    # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+# }
+# 
+# nvm() {
+    # loadnvm
+    # nvm "$@"
+# }
+ # 
+# node() {
+    # loadnvm
+    # node "$@"
+# }
+ # 
+# npm() {
+    # loadnvm
+    # npm "$@"
+# }
+# 
+# npmrun () {
+    # local script
+    # script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf)  && npm run $script
+# }
+
+# alias loadnvm="$NVM_DIR/nvm.sh" --no-use
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use           # This loads nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+# Local RubyGems
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
+# Python
+alias django="python manage.py"
+# eval "$(pyenv init -)"
+export PYENV_SHELL=zsh
+source '/usr/local/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
+command pyenv rehash 2>/dev/null
+pyenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  activate|deactivate|rehash|shell)
+    eval "$(pyenv "sh-$command" "$@")"
+    ;;
+  *)
+    command pyenv "$command" "$@"
+    ;;
+  esac
+}
+# if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+# export WORKON_HOME="$HOME/.venv"
+# source "/usr/local/bin/virtualenvwrapper.sh"
+
+# Go
+export PATH="$HOME/.cargo/bin:$PATH"
+export GOPATH=$HOME/lang/Go
+export PATH="$PATH:$HOME/lang/Go/bin"
+
+#alias fr="find . -type f -exec sed -i '' s/$1/$2/ {} +"
+
+# # Flutter
+# export PATH="$PATH:$HOME/flutter/bin"
+# export PATH="$PATH:$HOME/lib/flutter/bin"
+
+# # Mongoose OS
+# export PATH="$PATH:$HOME/.mos/bin"
+# # PIP user bin
+# export PATH="$PATH:$HOME/.local/bin"
+
+# FZF
+# add support for ctrl+o to open selected file in VS Code
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2/iterm2_shell_integration.zsh" && source "${HOME}/.iterm2/iterm2_shell_integration.zsh"
+
+# Anaconnda
+export PATH="$PATH:$HOME/opt/miniconda3/bin"
+
+
+# rustup
+source "$HOME/.cargo/env"
+
+
+
+
+
+######################################
+# zprof > .zprofiler.txt
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Created by `pipx` on 2022-03-30 15:52:09
+export PATH="$PATH:/Users/chris/.local/bin"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+[ -s "/Users/chris/.bun/_bun" ] && source "/Users/chris/.bun/_bun"
+
+# bun
+export BUN_INSTALL="/Users/chris/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+#AWSume alias to source the AWSume script
+alias awsume=". \$(pyenv which awsume)"
+fpath=(/usr/local/share/zsh/site-functions $fpath)
