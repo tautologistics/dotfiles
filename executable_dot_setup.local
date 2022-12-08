@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+info_echo "Installing or updating chezmoi ..."
+brew bundle --file=- <<EOF
+    brew 'chezmoi'
+EOF
+if [ ! -f "$HOME/.config/chezmoi/chezmoi.toml" ]; then
+  echo "Applying dotfiles with chezmoi..."
+  chezmoi init --apply --verbose https://github.com/tautologistics/dotfiles.git
+  chmod 0600 "$HOME/.config/chezmoi/chezmoi.toml"
+fi
+
+BREWFILE="$HOME/.config/Brewfile"
+if [ -f "$BREWFILE" ]; then
+  echo "Installing from ${BREWFILE}..."
+  if brew bundle --file="$BREWFILE"; then
+    echo "Install succeeded"
+  else
+    echo "Install failed"
+  fi
+fi

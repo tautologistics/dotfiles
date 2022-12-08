@@ -1,0 +1,9 @@
+{{- $github_email := promptString "Github email" -}}
+{{- $github_name := promptString "Github name" -}}
+{{- $github_signingkey := promptString "Github signingkey" -}}
+{{- $machine_context := promptString "Machine context [home|work]" -}}
+[data]
+  github_email = "{{ $github_email }}"
+  github_name = "{{ $github_name }}"
+  github_signingkey = "{{ $github_signingkey }}"
+  machine_context = "{{ $machine_context }}"

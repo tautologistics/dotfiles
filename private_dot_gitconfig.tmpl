@@ -1,17 +1,14 @@
 [user]
-	name = Chris Winberry
-	email = chris@winberry.net
-	signingkey = 2048R/796AFF9D
-
-[gui]
-	recentrepo = /Users/chris/Documents/workspace_3.5/NodeHtmlParser
+	name = {{ .github_name }}
+	email = {{ .github_email }}
+	signingkey = {{ .github_signingkey }}
 
 [color]
 	ui = true
-    branch = auto
-    diff = auto
-    interactive = auto
-    status = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
 
 [core]
 	autocrlf = input
@@ -21,21 +18,21 @@
 	# show = diff-so-fancy | less --tabs=4 -RFX
 
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
-    difftool = true
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+	difftool = true
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-    syntax-theme = TwoDark
-    navigate = true
-    plus-style = "syntax #113810"
-    minus-style = "syntax #541011"
-    side-by-side = true
+	syntax-theme = TwoDark
+	navigate = true
+	plus-style = "syntax #113810"
+	minus-style = "syntax #541011"
+	side-by-side = true
 
 [alias]
 	lp = log --pretty=oneline --abbrev-commit --graph --decorate
@@ -51,19 +48,19 @@
 	nevermind = checkout -- .
 	unstash = stash pop
 	rpull = pull --rebase
-    rp = pull --rebase
-    co = checkout
-    b = branch
-    bv = branch -v
-    c = commit
-    p = pull
-    f = fetch
-    lol = log --graph --decorate --pretty=oneline --abbrev-commit
-    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    amnesia = update-index --assume-unchanged
-    recall = update-index --no-assume-unchanged
-    forgetfulness = !sh -c 'git ls-files -v | grep ^[a-z]'
-    draft = !sh -c 'git stash save $0 && git stash apply stash@{0}'
+	rp = pull --rebase
+	co = checkout
+	b = branch
+	bv = branch -v
+	c = commit
+	p = pull
+	f = fetch
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	amnesia = update-index --assume-unchanged
+	recall = update-index --no-assume-unchanged
+	forgetfulness = !sh -c 'git ls-files -v | grep ^[a-z]'
+	draft = !sh -c 'git stash save $0 && git stash apply stash@{0}'
 	cob = checkout -b
 	cot = checkout -t
 	cobt = checkout -t -b
@@ -77,19 +74,19 @@
 	has = branch --contains
 	mc = log --graph --pretty --oneline --abbrev-commit --simplify-merges --date=relative
 	nb = branch --sort=-committerdate
-    frebase = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
-    fco = !git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
-    dft = difftool
+	frebase = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
+	fco = !git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
+	dft = difftool
 
 [difftool]
-        prompt = false
+	prompt = false
 
 [difftool "difftastic"]
-        cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
@@ -99,7 +96,7 @@
 	autosetupmerge = true
 
 [log]
-    date = iso
+	date = iso
 
 [push]
 	default = tracking
@@ -146,5 +143,6 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+
 [init]
 	defaultBranch = main
