@@ -55,7 +55,7 @@ brew "wtfutil"
 brew "zsh"
 
 {{- if eq .machine_context "home" }}
-brew "postgresql"
+brew "postgresql@14"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "heroku/brew/heroku"
@@ -381,3 +381,29 @@ cask "aws-vault"
 # cask "wkhtmltopdf"
 # cask "xquartz"
 # cask "yt-music"
+
+### AppStore ###
+
+mas "RsyncGUI", id: 1449707783
+mas "Sandkorn", id: 1377973524
+mas "Spark", id: 1176895641
+mas "Xcode", id: 497799835
+
+{{- if eq .machine_context "home" }}
+mas "Brother iPrint&Scan", id: 1193539993
+mas "GoPro Player", id: 1460836908
+mas "HP Smart", id: 1474276998
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Pixelmator Pro", id: 1289583905
+mas "Pluralsight", id: 431748264
+mas "Ring", id: 1142753258
+mas "Tailscale", id: 1475387142
+mas "The Unarchiver", id: 425424353
+mas "WireGuard", id: 1451685025
+{{- end }}
+
+{{- if eq .machine_context "work" }}
+{{- end }}
