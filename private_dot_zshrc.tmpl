@@ -242,11 +242,12 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
 
+{{- if eq .machine_context "home" }}
 # Python
 alias django="python manage.py"
 # eval "$(pyenv init -)"
 export PYENV_SHELL=zsh
-source '{{ .homebrew_dir }}/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
+# source '{{ .homebrew_dir }}/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -267,11 +268,12 @@ pyenv() {
 # if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 # export WORKON_HOME="$HOME/.venv"
 # source "{{ .homebrew_dir }}/bin/virtualenvwrapper.sh"
+{{- end }}
 
-# Go
-export PATH="$HOME/.cargo/bin:$PATH"
-export GOPATH=$HOME/lang/Go
-export PATH="$PATH:$HOME/lang/Go/bin"
+# # Go
+# export PATH="$HOME/.cargo/bin:$PATH"
+# export GOPATH=$HOME/lang/Go
+# export PATH="$PATH:$HOME/lang/Go/bin"
 
 #alias fr="find . -type f -exec sed -i '' s/$1/$2/ {} +"
 
@@ -295,8 +297,8 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.zsh" && source "${HOME}/.iterm
 export PATH="$PATH:$HOME/opt/miniconda3/bin"
 
 
-# rustup
-source "$HOME/.cargo/env"
+# # rustup
+# source "$HOME/.cargo/env"
 
 ######################################
 # zprof > .zprofiler.txt
