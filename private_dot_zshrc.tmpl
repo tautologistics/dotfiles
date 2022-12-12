@@ -62,7 +62,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 #plugins=(git atom brew brew-cask colored-man colorize git-extras git-prompt heroku node osx npm nvm gulp tmux tmuxinator)
 #plugins=(git brew brew-cask colored-man colorize git-extras git-prompt)
 
-source /opt/homebrew/share/antigen/antigen.zsh
+source {{ .homebrew_dir }}/share/antigen/antigen.zsh
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
@@ -119,11 +119,11 @@ export ZSH_HIGHLIGHT_STYLES[globbing]=fg=cyan,bold
 
 export EDITOR=micro
 
-export PATH="/opt/homebrew/sbin:/opt/homebrew/bin:bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin:$HOME/Library/Android/sdk/platform-tools"
-export MANPATH="/opt/homebrew/man:/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+export PATH="{{ .homebrew_dir }}/sbin:{{ .homebrew_dir }}/bin:bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin:$HOME/Library/Android/sdk/platform-tools"
+export MANPATH="{{ .homebrew_dir }}/man:{{ .homebrew_dir }}/opt/coreutils/libexec/gnuman:$MANPATH"
 
-#export ANDROID_HOME=/opt/homebrew/opt/android-sdk
-#export ANDROID_SDK_ROOT=/opt/homebrew/opt/android-sdk
+#export ANDROID_HOME={{ .homebrew_dir }}/opt/android-sdk
+#export ANDROID_SDK_ROOT={{ .homebrew_dir }}/opt/android-sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 
@@ -153,12 +153,12 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ### Added by the Heroku Toolbelt
-export PATH="/opt/homebrew/heroku/bin:$HOME/Library/Haskell/bin:$PATH"
+export PATH="{{ .homebrew_dir }}/heroku/bin:$HOME/Library/Haskell/bin:$PATH"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR={{ .homebrew_dir }}/share/zsh-syntax-highlighting/highlighters
 
 alias ll="ls -lhAG"
 alias lls="exa -lha"
@@ -196,7 +196,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Use GNU CLTs
 # https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
-#export PATH="$(brew --prefix coreutils)/libexec/gnubin:/opt/homebrew/bin:$PATH"
+#export PATH="$(brew --prefix coreutils)/libexec/gnubin:{{ .homebrew_dir }}/bin:$PATH"
 
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
@@ -246,7 +246,7 @@ export PATH=$GEM_HOME/bin:$PATH
 alias django="python manage.py"
 # eval "$(pyenv init -)"
 export PYENV_SHELL=zsh
-source '/opt/homebrew/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
+source '{{ .homebrew_dir }}/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -266,7 +266,7 @@ pyenv() {
 }
 # if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 # export WORKON_HOME="$HOME/.venv"
-# source "/opt/homebrew/bin/virtualenvwrapper.sh"
+# source "{{ .homebrew_dir }}/bin/virtualenvwrapper.sh"
 
 # Go
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -318,4 +318,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 #AWSume alias to source the AWSume script
 alias awsume=". \$(pyenv which awsume)"
-fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+fpath=({{ .homebrew_dir }}/share/zsh/site-functions $fpath)

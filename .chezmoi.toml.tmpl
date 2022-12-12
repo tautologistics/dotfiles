@@ -1,9 +1,10 @@
-{{- $github_email := promptString "Github email" -}}
-{{- $github_name := promptString "Github name" -}}
-{{- $github_signingkey := promptString "Github signingkey" -}}
-{{- $machine_context := promptString "Machine context [home|work]" -}}
+{{- $github_email := promptString -}}
+{{- $github_name := promptString "Chris Winberry" -}}
+{{- $github_signingkey := promptString -}}
+{{- $machine_context := promptString "home" -}}
 [data]
-  github_email = "{{ $github_email }}"
-  github_name = "{{ $github_name }}"
-  github_signingkey = "{{ $github_signingkey }}"
-  machine_context = "{{ $machine_context }}"
+  github_email="{{ $github_email }}"
+  github_name="{{ $github_name }}"
+  github_signingkey="{{ $github_signingkey }}"
+  machine_context="{{ $machine_context }}"
+  homebrew_dir="{{ if eq .chezmoi.arch "amd64" }}/usr/local{{ else }}/opt/homebrew{{ end }}"

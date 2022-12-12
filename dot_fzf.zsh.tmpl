@@ -1,0 +1,13 @@
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == *{{ .homebrew_dir }}/opt/fzf/bin* ]]; then
+  export PATH="$PATH:{{ .homebrew_dir }}/opt/fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "{{ .homebrew_dir }}/opt/fzf/shell/completion.zsh" 2> /dev/null
+
+# Key bindings
+# ------------
+source "{{ .homebrew_dir }}/opt/fzf/shell/key-bindings.zsh"
