@@ -1,0 +1,163 @@
+#!/usr/bin/env python3
+
+'''
+This script performs a copy of files from source to destination rather than
+"moving" files and creating/breaking symlinks.
+
+Usage: ./mackup-copy <backup|restore> [<app name>]
+
+Examples:
+
+  Backup "spectacle" app:
+
+    ./mackup-copy backup spectacle
+
+  Restore "spectacle" app:
+
+    ./mackup-copy restore spectacle
+
+  Backup all supported apps:
+
+    ./mackup-copy backup
+
+  Restore all supported apps:
+
+    ./mackup-copy restore
+
+'''
+
+import os
+import re
+import shutil
+import sys
+from importlib.machinery import SourceFileLoader
+
+# Find the location of the homebrew installed mackup
+brew_path = os.popen('brew --prefix').read().strip()
+print('Homebrew: {:s}'.format(brew_path))
+# Find the executable mackup script
+mackup_bin = os.path.join(brew_path, 'bin', 'mackup')
+print('Mackup bin: {:s}'.format(mackup_bin))
+# Get the path to the python used by the mackup executable
+with open(mackup_bin) as f:
+  mackup_exec = re.sub('^#\!', '', f.readline().strip())
+print('Mackup exec: {:s}'.format(mackup_exec))
+# Derive the python lib path
+mackup_lib = os.path.join(re.sub('/bin/', '/lib/', mackup_exec), 'site-packages')
+print('Mackup lib: {:s}'.format(mackup_lib))
+# Add the mackup python lib path to the system path so its modules are found for importing
+sys.path.append(mackup_lib)
+print('')
+
+from mackup.mackup import Mackup
+from mackup.appsdb import ApplicationsDatabase
+from mackup.application import ApplicationProfile
+import mackup.utils as utils
+
+# Copied from mackup.utils to support overwriting existing targets
+def copy(src, dst, dirs_exist_ok=False):
+    """
+    Copy a file or a folder (recursively) from src to dst.
+
+    For the sake of simplicity, both src and dst must be absolute path and must
+    include the filename of the file or folder.
+    Also do not include any trailing slash.
+
+    e.g. copy('/path/to/src_file', '/path/to/dst_file')
+    or copy('/path/to/src_folder', '/path/to/dst_folder')
+
+    But not: copy('/path/to/src_file', 'path/to/')
+    or copy('/path/to/src_folder/', '/path/to/dst_folder')
+
+    Args:
+        src (str): Source file or folder
+        dst (str): Destination file or folder
+    """
+    assert isinstance(src, str)
+    assert os.path.exists(src)
+    assert isinstance(dst, str)
+
+    # Create the path to the dst file if it does not exist
+    abs_path = os.path.dirname(os.path.abspath(dst))
+    if not os.path.isdir(abs_path):
+        os.makedirs(abs_path)
+
+    # We need to copy a single file
+    if os.path.isfile(src):
+        # Copy the src file to dst
+        shutil.copy(src, dst)
+
+    # We need to copy a whole folder
+    elif os.path.isdir(src):
+        shutil.copytree(src, dst, dirs_exist_ok=dirs_exist_ok)
+
+    # What the heck is this?
+    else:
+        raise ValueError("Unsupported file: {}".format(src))
+
+    # Set the good mode to the file or folder recursively
+    utils.chmod(dst)
+
+# Show usage if not enough arguments
+if len(sys.argv) < 2:
+  print('Usage: ./mackup-copy <backup|restore> [<app name>]')
+  exit()
+
+# Get the "action" arguments
+action = sys.argv[1]
+if not action in ['backup', 'restore']:
+  print('Unrecognized action: {:s}'.format(action))
+  exit()
+
+# Get the optional "app" argument
+if len(sys.argv) >= 3:
+  target = sys.argv[2]
+else:
+  target = '*'
+
+# Echo back arguments parsed
+print('Action: {:s}\nTarget: {:s}'.format(action, target))
+
+# TODO: support these as arguments
+dry_run = False
+verbose = True
+
+mckp = Mackup()
+app_db = ApplicationsDatabase()
+
+for app_name in sorted(mckp.get_apps_to_backup()):
+  if target != '*' and app_name != target:
+    continue
+  app = ApplicationProfile(mckp, app_db.get_files(app_name), dry_run, verbose)
+  print('-', app_name)
+  continue
+  for filename in app.files:
+    (home_filepath, mackup_filepath) = app.getFilepaths(filename)
+    if (
+      os.path.isfile(home_filepath)
+      or
+      os.path.isdir(home_filepath)
+    ) and not (
+      os.path.islink(home_filepath)
+      and (
+        os.path.isfile(mackup_filepath)
+        or
+        os.path.isdir(mackup_filepath)
+      )
+      and
+      os.path.samefile(home_filepath, mackup_filepath)
+    ):
+
+      if action == 'backup':
+        src = home_filepath
+        dst = mackup_filepath
+      elif action == 'restore':
+        src = mackup_filepath
+        dst = home_filepath
+      else:
+        print('    No action')
+        continue
+
+      print('    -', src)
+      print('      ->', dst)
+      copy(src, dst, dirs_exist_ok=True)
