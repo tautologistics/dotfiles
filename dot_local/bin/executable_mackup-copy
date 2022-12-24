@@ -130,7 +130,6 @@ for app_name in sorted(mckp.get_apps_to_backup()):
     continue
   app = ApplicationProfile(mckp, app_db.get_files(app_name), dry_run, verbose)
   print('-', app_name)
-  continue
   for filename in app.files:
     (home_filepath, mackup_filepath) = app.getFilepaths(filename)
     if (
