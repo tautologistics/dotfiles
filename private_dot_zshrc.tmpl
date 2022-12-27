@@ -73,6 +73,9 @@ antigen bundle brew
 antigen bundle brew-cask
 antigen bundle colored-man
 antigen bundle colorize
+antigen bundle copybuffer
+antigen bundle copydir
+antigen bundle copyfile
 antigen bundle git-extras
 antigen bundle arialdomartini/oh-my-git
 antigen bundle git-prompt
@@ -83,7 +86,9 @@ antigen bundle Tarrasch/zsh-autoenv
 #antigen bundle popstas/zsh-command-time
 antigen bundle Aloxaf/fzf-tab
 #antigen bundle agkozak/zsh-z
+{{- if eq .machine_context "home" }}
 antigen bundle thuandt/zsh-pipx
+{{- end }}
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
