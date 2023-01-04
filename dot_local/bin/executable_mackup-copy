@@ -147,7 +147,7 @@ for app_name in sorted(mckp.get_apps_to_backup()):
       os.path.isfile(src)
       or
       os.path.isdir(src)
-    ) and not os.path.samefile(home_filepath, mackup_filepath):
+    ):
       print('    -', src)
       print('      ->', dst)
       copy(src, dst, dirs_exist_ok=True)
