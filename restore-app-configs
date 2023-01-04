@@ -4,6 +4,7 @@ mackup-copy restore aws
 mackup-copy restore curl
 mackup-copy restore dash
 mackup-copy restore docker
+mackup-copy restore firefox
 mackup-copy restore gnupg
 mackup-copy restore heroku
 mackup-copy restore htop
