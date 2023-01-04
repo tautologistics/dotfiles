@@ -132,31 +132,22 @@ for app_name in sorted(mckp.get_apps_to_backup()):
   print('-', app_name)
   for filename in app.files:
     (home_filepath, mackup_filepath) = app.getFilepaths(filename)
+
+    if action == 'backup':
+      src = home_filepath
+      dst = mackup_filepath
+    elif action == 'restore':
+      src = mackup_filepath
+      dst = home_filepath
+    else:
+      print('    No action')
+      continue
+
     if (
-      os.path.isfile(home_filepath)
+      os.path.isfile(src)
       or
-      os.path.isdir(home_filepath)
-    ) and not (
-      os.path.islink(home_filepath)
-      and (
-        os.path.isfile(mackup_filepath)
-        or
-        os.path.isdir(mackup_filepath)
-      )
-      and
-      os.path.samefile(home_filepath, mackup_filepath)
-    ):
-
-      if action == 'backup':
-        src = home_filepath
-        dst = mackup_filepath
-      elif action == 'restore':
-        src = mackup_filepath
-        dst = home_filepath
-      else:
-        print('    No action')
-        continue
-
+      os.path.isdir(src)
+    ) and not os.path.samefile(home_filepath, mackup_filepath):
       print('    -', src)
       print('      ->', dst)
       copy(src, dst, dirs_exist_ok=True)
