@@ -251,29 +251,10 @@ export PATH=$GEM_HOME/bin:$PATH
 {{- if eq .machine_context "home" }}
 # Python
 alias django="python manage.py"
-# eval "$(pyenv init -)"
-export PYENV_SHELL=zsh
-# source '{{ .homebrew_dir }}/Cellar/pyenv/2.0.1/libexec/../completions/pyenv.zsh'
-command pyenv rehash 2>/dev/null
-pyenv() {
-  local command
-  command="${1:-}"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
-
-  case "$command" in
-  activate|deactivate|rehash|shell)
-    eval "$(pyenv "sh-$command" "$@")"
-    ;;
-  *)
-    command pyenv "$command" "$@"
-    ;;
-  esac
-}
-# if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-# export WORKON_HOME="$HOME/.venv"
-# source "{{ .homebrew_dir }}/bin/virtualenvwrapper.sh"
+eval "$(pyenv init --path)"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 {{- end }}
 
 # # Go
