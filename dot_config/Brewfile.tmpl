@@ -60,6 +60,12 @@ brew "postgresql@14"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "heroku/brew/heroku"
+# pyenv build dependencies
+brew "openssl"
+brew "readline"
+brew "sqlite3"
+brew "xz"
+brew "zlib"
 {{- end }}
 
 {{- if eq .machine_context "work" }}
@@ -304,6 +310,7 @@ cask "istat-menus"
 cask "jetbrains-toolbox"
 cask "keybase"
 cask "little-snitch"
+cask "openaudible"
 cask "royal-tsx"
 cask "transmit"
 cask "ultimaker-cura"
