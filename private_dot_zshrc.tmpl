@@ -248,14 +248,15 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
 
-{{- if eq .machine_context "home" }}
 # Python
 alias python="python3"
+alias pip="pip3"
+eval "$(pyenv init --path)"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+{{- if eq .machine_context "home" }}
 alias django="python manage.py"
-# eval "$(pyenv init --path)"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
 {{- end }}
 
 # # Go
